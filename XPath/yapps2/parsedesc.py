@@ -26,7 +26,7 @@ def cleanup_rep(node, rep):
     else:               return node
 
 def resolve_name(tokens, id, args):
-    if id in map(lambda x: x[0], tokens):
+    if id in [x[0] for x in tokens]:
 	# It's a token
 	if args:
 	    print('Warning: ignoring parameters on TOKEN %s<<%s>>' % (id, args))
@@ -236,13 +236,13 @@ def generate(inputfilename, outputfilename='', dump=0, **flags):
     if postparser is not None: t.postparser = postparser
 
     # Check the options
-    for f in t.options.keys():
+    for f in list(t.options.keys()):
         for opt,_,_ in yapps_options:
             if f == opt: break
         else:
             print('Warning: unrecognized option', f)
     # Add command line options to the set
-    for f in flags.keys(): t.options[f] = flags[f]
+    for f in list(flags.keys()): t.options[f] = flags[f]
             
     # Generate the output
     if dump:

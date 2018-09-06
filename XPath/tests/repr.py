@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from builtins import str
 import unittest
 import xml.dom.minidom
 import xpath

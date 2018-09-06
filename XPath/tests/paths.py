@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from builtins import range
 import unittest
 import xml.dom.minidom
 import xpath
@@ -272,10 +273,10 @@ class PathsTestCase(unittest.TestCase):
 
     def test_figure_42(self):
         x = '<doc>'
-        for i in xrange(10):
-            for j in xrange(10):
+        for i in range(10):
+            for j in range(10):
                 x += '<figure id="%d">' % ((i*10)+j)
-            for j in xrange(10):
+            for j in range(10):
                 x += '</figure>'
             x += '\n'
         x += '</doc>'

@@ -1,3 +1,6 @@
+from builtins import str
+from builtins import range
+from builtins import object
 from xpath.exceptions import *
 import xpath.exceptions
 import xpath.expr
@@ -36,7 +39,7 @@ class XPathContext(object):
                 document = document.ownerDocument
             if document.documentElement is not None:
                 attrs = document.documentElement.attributes
-                for attr in (attrs.item(i) for i in xrange(attrs.length)):
+                for attr in (attrs.item(i) for i in range(attrs.length)):
                     if attr.name == 'xmlns':
                         self.default_namespace = attr.value
                     elif attr.name.startswith('xmlns:'):
@@ -77,7 +80,7 @@ class XPathContext(object):
     def findvalues(self, expr, node, **kwargs):
         return xpath.findvalues(expr, node, context=self, **kwargs)
 
-class XPath():
+class XPath(object):
     _max_cache = 100
     _cache = {}
 

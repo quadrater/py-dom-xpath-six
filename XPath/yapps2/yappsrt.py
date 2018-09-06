@@ -3,6 +3,7 @@ from __future__ import print_function
 #
 # This module is needed to run generated parsers.
 
+from builtins import object
 from string import join, count, find, rfind
 import re
 
@@ -20,7 +21,7 @@ class NoMoreTokens(Exception):
     """Another exception object, for when we run out of tokens"""
     pass
 
-class Scanner:
+class Scanner(object):
     def __init__(self, patterns, ignore, input):
 	"""Patterns is [(terminal,regex)...]
         Ignore is [terminal,...];
@@ -102,7 +103,7 @@ class Scanner:
 		# This token should be ignored ..
 		self.pos = self.pos + best_match
 
-class Parser:
+class Parser(object):
     def __init__(self, scanner):
         self._scanner = scanner
         self._pos = 0

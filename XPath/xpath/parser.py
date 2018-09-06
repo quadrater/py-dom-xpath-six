@@ -1,4 +1,3 @@
-from __future__ import print_function
 import xpath.expr as X
 from xpath.yappsrt import *
 
@@ -413,5 +412,5 @@ if __name__ == '__main__':
             f = open(argv[2],'r')
         else:
             f = stdin
-        print(parse(argv[1], f.read()))
-    else: print('Args:  <rule> [<filename>]')
+        print parse(argv[1], f.read())
+    else: print 'Args:  <rule> [<filename>]'

@@ -27,13 +27,19 @@
 #   ClassException(...) (thanks Alex Verstak)
 
 from __future__ import print_function
+from __future__ import division
+from builtins import filter
+from builtins import str
+from builtins import range
+from builtins import object
+from past.utils import old_div
 from yappsrt import *
 import sys
 import re
 
 INDENT = " "*4
 
-class Generator:
+class Generator(object):
     def __init__(self, name, options, tokens, rules):
         self.change_count = 0
         self.name = name
@@ -48,7 +54,7 @@ class Generator:
             if n == '#ignore':
                 n = t
                 self.ignore.append(n)
-            if n in self.tokens.keys() and self.tokens[n] != t:
+            if n in list(self.tokens.keys()) and self.tokens[n] != t:
                 print('Warning: token', n, 'multiply defined.')
             self.tokens[n] = t
             self.terminals.append(n)
@@ -68,7 +74,7 @@ class Generator:
         return self.options.get(name, 0)
     
     def non_ignored_tokens(self):
-        return filter(lambda x, i=self.ignore: x not in i, self.terminals)
+        return list(filter(lambda x, i=self.ignore: x not in i, self.terminals))
     
     def changed(self):
         self.change_count = 1+self.change_count
@@ -103,9 +109,9 @@ class Generator:
     def in_test(self, x, full, b):
         if not b: return '0'
         if len(b) == 1: return '%s == %s' % (x, repr(b[0]))
-        if full and len(b) > len(full)/2:
+        if full and len(b) > old_div(len(full),2):
             # Reverse the sense of the test.
-            not_b = filter(lambda x, b=b: x not in b, full)
+            not_b = list(filter(lambda x, b=b: x not in b, full))
             return self.not_in_test(x, full, not_b)
         return '%s in %s' % (x, repr(b))
     
@@ -208,7 +214,7 @@ class Generator:
             self.write(INDENT, "else: print 'Args:  <rule> [<filename>]'\n")
 
 ######################################################################
-class Node:
+class Node(object):
     def __init__(self):
         self.first = []
         self.follow = []
@@ -330,7 +336,7 @@ class Sequence(Node):
         return self.children
     
     def __str__(self):
-        return '( %s )' % join(map(lambda x: str(x), self.children))
+        return '( %s )' % join([str(x) for x in self.children])
 
     def update(self, gen):
         Node.update(self, gen)
@@ -380,7 +386,7 @@ class Choice(Node):
         return self.children
     
     def __str__(self):
-        return '( %s )' % join(map(lambda x: str(x), self.children), ' | ')
+        return '( %s )' % join([str(x) for x in self.children], ' | ')
 
     def update(self, gen):
         Node.update(self, gen)
@@ -553,7 +559,7 @@ def cleanup_rep(node, rep):
     else:               return node
 
 def resolve_name(tokens, id, args):
-    if id in map(lambda x: x[0], tokens):
+    if id in [x[0] for x in tokens]:
 	# It's a token
 	if args:
 	    print('Warning: ignoring parameters on TOKEN %s<<%s>>' % (id, args))
@@ -754,13 +760,13 @@ def generate(inputfilename, outputfilename='', dump=0, **flags):
     if postparser is not None: t.postparser = postparser
 
     # Check the options
-    for f in t.options.keys():
+    for f in list(t.options.keys()):
         for opt,_,_ in yapps_options:
             if f == opt: break
         else:
             print('Warning: unrecognized option', f)
     # Add command line options to the set
-    for f in flags.keys(): t.options[f] = flags[f]
+    for f in list(flags.keys()): t.options[f] = flags[f]
             
     # Generate the output
     if dump:
