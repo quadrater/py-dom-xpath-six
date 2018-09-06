@@ -206,7 +206,7 @@ def generate(inputfilename, outputfilename='', dump=0, **flags):
 
     if not outputfilename:
 	if inputfilename[-2:]=='.g': outputfilename = inputfilename[:-2]+'.py'
-	else: raise "Invalid Filename", outputfilename
+	else: raise ValueError("Invalid Filename %s" %outputfilename)
         
     print('Input Grammar:', inputfilename)
     print('Output File:', outputfilename)
