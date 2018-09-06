@@ -87,7 +87,7 @@ def document_order(node):
 def nodeset(v):
     """Convert a value to a nodeset."""
     if not nodesetp(v):
-        raise XPathTypeError, "value is not a node-set"
+        raise XPathTypeError("value is not a node-set")
     return v
 
 def nodesetp(v):
@@ -330,13 +330,13 @@ class Function(Expr):
         self.args = args
         self.evaluate = getattr(self, 'f_%s' % name.replace('-', '_'), None)
         if self.evaluate is None:
-            raise XPathUnknownFunctionError, 'unknown function "%s()"' % name
+            raise XPathUnknownFunctionError('unknown function "%s()"' % name)
 
         if len(self.args) < self.evaluate.minargs:
-            raise XPathTypeError, 'too few arguments for "%s()"' % name
+            raise XPathTypeError('too few arguments for "%s()"' % name)
         if (self.evaluate.maxargs is not None and
             len(self.args) > self.evaluate.maxargs):
-            raise XPathTypeError, 'too many arguments for "%s()"' % name
+            raise XPathTypeError('too many arguments for "%s()"' % name)
 
     #
     # XPath functions are implemented by methods of the Function class.

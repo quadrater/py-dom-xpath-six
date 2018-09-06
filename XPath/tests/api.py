@@ -29,7 +29,7 @@ class TestAPI(unittest.TestCase):
         def invoke(obj, func, *args, **kwargs):
             try:
                 return getattr(obj, func)(*args, **kwargs)
-            except xpath.XPathError, e:
+            except xpath.XPathError as e:
                 return e.__class__
 
         for f in functions:

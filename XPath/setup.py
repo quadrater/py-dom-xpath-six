@@ -48,7 +48,7 @@ class build_py(_build_py):
         return modules
 
 setup(name="py-dom-xpath-redux",
-      version="0.1.1",
+      version="0.2",
       description="XPath for DOM trees",
       long_description="""\
 py-dom-xpath is a pure Python implementation of XPath 1.0. It
@@ -56,7 +56,7 @@ supports almost all XPath 1.0, with the main exception being the
 namespace axis. It operates on DOM 2.0 nodes, and works well with
 xml.dom.minidom.
 
-py-dom-xpath requires Python 2.5 or greater.""",
+py-dom-xpath requires Python 2.7 or 3.X or greater.""",
       author='Andrew Cutler',
       author_email='macropin@gmail.com',
       url='https://github.com/macropin/py-dom-xpath-redux',

@@ -19,7 +19,7 @@ def api(f):
     def api_function(*args, **kwargs):
         try:
             return f(*args, **kwargs)
-        except XPathError, e:
+        except XPathError as e:
             raise e
     api_function.__name__ = f.__name__
     api_function.__doc__ = f.__doc__
@@ -87,7 +87,7 @@ class XPath():
         try:
             parser = xpath.parser.XPath(xpath.parser.XPathScanner(str(expr)))
             self.expr = parser.XPath()
-        except xpath.yappsrt.SyntaxError, e:
+        except xpath.yappsrt.SyntaxError as e:
             raise XPathParseError(str(expr), e.pos, e.msg)
 
     @classmethod

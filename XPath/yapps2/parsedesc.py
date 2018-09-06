@@ -1,3 +1,4 @@
+from __future__ import print_function
 ######################################################################
 # The remainder of this file is from parsedesc.{g,py}
 
@@ -13,11 +14,11 @@ def add_inline_token(tokens, str):
 def cleanup_choice(lst):
     if len(lst) == 0: return Sequence([])
     if len(lst) == 1: return lst[0]
-    return apply(Choice, tuple(lst))
+    return Choice(*tuple(lst))
 
 def cleanup_sequence(lst):
     if len(lst) == 1: return lst[0]
-    return apply(Sequence, tuple(lst))
+    return Sequence(*tuple(lst))
 
 def cleanup_rep(node, rep):
     if rep == 'star':   return Star(node)
@@ -28,7 +29,7 @@ def resolve_name(tokens, id, args):
     if id in map(lambda x: x[0], tokens):
 	# It's a token
 	if args:
-	    print 'Warning: ignoring parameters on TOKEN %s<<%s>>' % (id, args)
+	    print('Warning: ignoring parameters on TOKEN %s<<%s>>' % (id, args))
         return Terminal(id)
     else:
         # It's a name, so assume it's a nonterminal
@@ -207,8 +208,8 @@ def generate(inputfilename, outputfilename='', dump=0, **flags):
 	if inputfilename[-2:]=='.g': outputfilename = inputfilename[:-2]+'.py'
 	else: raise "Invalid Filename", outputfilename
         
-    print 'Input Grammar:', inputfilename
-    print 'Output File:', outputfilename
+    print('Input Grammar:', inputfilename)
+    print('Output File:', outputfilename)
     
     DIVIDER = '\n%%\n' # This pattern separates the pre/post parsers
     preparser, postparser = None, None # Code before and after the parser desc
@@ -239,7 +240,7 @@ def generate(inputfilename, outputfilename='', dump=0, **flags):
         for opt,_,_ in yapps_options:
             if f == opt: break
         else:
-            print 'Warning: unrecognized option', f
+            print('Warning: unrecognized option', f)
     # Add command line options to the set
     for f in flags.keys(): t.options[f] = flags[f]
             
@@ -254,12 +255,12 @@ if __name__=='__main__':
     import sys, getopt
     optlist, args = getopt.getopt(sys.argv[1:], 'f:', ['dump'])
     if not args or len(args) > 2:
-        print 'Usage:'
-        print '  python', sys.argv[0], '[flags] input.g [output.py]'
-        print 'Flags:'
-        print ('  --dump' + ' '*40)[:35] + 'Dump out grammar information'
+        print('Usage:')
+        print('  python', sys.argv[0], '[flags] input.g [output.py]')
+        print('Flags:')
+        print(('  --dump' + ' '*40)[:35] + 'Dump out grammar information')
         for flag, _, doc in yapps_options:
-            print ('  -f' + flag + ' '*40)[:35] + doc
+            print(('  -f' + flag + ' '*40)[:35] + doc)
     else:
         # Read in the options and create a list of flags
 	flags = {}
@@ -272,6 +273,6 @@ if __name__=='__main__':
                 if opt == ('--dump', ''):
                     flags['dump'] = 1
 		else:
-                    print 'Warning - unrecognized option:  ', opt[0], opt[1]
+                    print('Warning - unrecognized option:  ', opt[0], opt[1])
 
-        apply(generate, tuple(args), flags)
+        generate(*tuple(args), **flags)
