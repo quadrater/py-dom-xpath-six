@@ -27,9 +27,9 @@ def cleanup_rep(node, rep):
 
 def resolve_name(tokens, id, args):
     if id in [x[0] for x in tokens]:
-	# It's a token
-	if args:
-	    print('Warning: ignoring parameters on TOKEN %s<<%s>>' % (id, args))
+        # It's a token
+        if args:
+            print('Warning: ignoring parameters on TOKEN %s<<%s>>' % (id, args))
         return Terminal(id)
     else:
         # It's a name, so assume it's a nonterminal
@@ -205,8 +205,8 @@ def generate(inputfilename, outputfilename='', dump=0, **flags):
     and an output filename (defaulting to X.py)."""
 
     if not outputfilename:
-	if inputfilename[-2:]=='.g': outputfilename = inputfilename[:-2]+'.py'
-	else: raise ValueError("Invalid Filename %s" %outputfilename)
+        if inputfilename[-2:]=='.g': outputfilename = inputfilename[:-2]+'.py'
+        else: raise ValueError("Invalid Filename %s" %outputfilename)
         
     print('Input Grammar:', inputfilename)
     print('Output File:', outputfilename)
@@ -263,16 +263,16 @@ if __name__=='__main__':
             print(('  -f' + flag + ' '*40)[:35] + doc)
     else:
         # Read in the options and create a list of flags
-	flags = {}
-	for opt in optlist:
-	    for flag, name, _ in yapps_options:
-		if opt == ('-f', flag):
-		    flags[name] = 1
-		    break
-	    else:
+        flags = {}
+        for opt in optlist:
+            for flag, name, _ in yapps_options:
+                if opt == ('-f', flag):
+                    flags[name] = 1
+                    break
+            else:
                 if opt == ('--dump', ''):
                     flags['dump'] = 1
-		else:
+                else:
                     print('Warning - unrecognized option:  ', opt[0], opt[1])
 
         generate(*tuple(args), **flags)

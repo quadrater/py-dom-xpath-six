@@ -175,17 +175,17 @@ class Generator(object):
         self.write("import re\n")
         if not self['no-support-module']:
             self.write("from yappsrt import *\n")
-	self.write("\n")
-	self.write("class ", self.name, "Scanner(Scanner):\n")
+        self.write("\n")
+        self.write("class ", self.name, "Scanner(Scanner):\n")
         self.write("    patterns = [\n")
         for p in self.terminals:
             self.write("        (%s, re.compile(%s)),\n" % (
                 repr(p), repr(self.tokens[p])))
         self.write("    ]\n")
-	self.write("    def __init__(self, str):\n")
-	self.write("        Scanner.__init__(self,None,%s,str)\n" %
+        self.write("    def __init__(self, str):\n")
+        self.write("        Scanner.__init__(self,None,%s,str)\n" %
                    repr(self.ignore))
-	self.write("\n")
+        self.write("\n")
         
         self.write("class ", self.name, "(Parser):\n")
         for r in self.goals:
@@ -560,9 +560,9 @@ def cleanup_rep(node, rep):
 
 def resolve_name(tokens, id, args):
     if id in [x[0] for x in tokens]:
-	# It's a token
-	if args:
-	    print('Warning: ignoring parameters on TOKEN %s<<%s>>' % (id, args))
+        # It's a token
+        if args:
+            print('Warning: ignoring parameters on TOKEN %s<<%s>>' % (id, args))
         return Terminal(id)
     else:
         # It's a name, so assume it's a nonterminal
@@ -727,9 +727,9 @@ def generate(inputfilename, outputfilename='', dump=0, **flags):
     and an output filename (defaulting to X.py)."""
 
     if not outputfilename:
-	if inputfilename[-2:] == '.g':
+        if inputfilename[-2:] == '.g':
             outputfilename = inputfilename[:-2]+'.py'
-	else:
+        else:
             raise Exception("Missing output filename")
         
     print('Input Grammar:', inputfilename)
@@ -787,16 +787,16 @@ if __name__ == '__main__':
             print(('  -f' + flag + ' '*40)[:35] + doc)
     else:
         # Read in the options and create a list of flags
-	flags = {}
-	for opt in optlist:
-	    for flag, name, _ in yapps_options:
-		if opt == ('-f', flag):
-		    flags[name] = 1
-		    break
-	    else:
+        flags = {}
+        for opt in optlist:
+            for flag, name, _ in yapps_options:
+                if opt == ('-f', flag):
+                    flags[name] = 1
+                    break
+            else:
                 if opt == ('--dump', ''):
                     flags['dump'] = 1
-		else:
+                else:
                     print('Warning: unrecognized option', opt[0], opt[1])
 
         generate(*tuple(args), **flags)
