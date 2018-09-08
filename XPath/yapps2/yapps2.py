@@ -175,17 +175,17 @@ class Generator(object):
         self.write("import re\n")
         if not self['no-support-module']:
             self.write("from yappsrt import *\n")
-        self.write("\n")
-        self.write("class ", self.name, "Scanner(Scanner):\n")
+    self.write("\n")
+    self.write("class ", self.name, "Scanner(Scanner):\n")
         self.write("    patterns = [\n")
         for p in self.terminals:
             self.write("        (%s, re.compile(%s)),\n" % (
                 repr(p), repr(self.tokens[p])))
         self.write("    ]\n")
-        self.write("    def __init__(self, str):\n")
-        self.write("        Scanner.__init__(self,None,%s,str)\n" %
+    self.write("    def __init__(self, str):\n")
+    self.write("        Scanner.__init__(self,None,%s,str)\n" %
                    repr(self.ignore))
-        self.write("\n")
+    self.write("\n")
         
         self.write("class ", self.name, "(Parser):\n")
         for r in self.goals:
