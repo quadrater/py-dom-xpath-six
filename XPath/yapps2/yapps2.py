@@ -169,10 +169,10 @@ class Generator(object):
                 for x in top.get_children(): queue.append(x)
                 
     def generate_output(self):
+        self.write("from __future__ import print_function\n")
         self.calculate()
         self.write(self.preparser)
         # TODO: remove "import *" construct
-        self.write("from string import *\n")
         self.write("import re\n")
         if not self['no-support-module']:
             self.write("from yappsrt import *\n")
@@ -211,8 +211,8 @@ class Generator(object):
             self.write(INDENT*3, "f = open(argv[2],'r')\n")
             self.write(INDENT*2, "else:\n")
             self.write(INDENT*3, "f = stdin\n")
-            self.write(INDENT*2, "print parse(argv[1], f.read())\n")
-            self.write(INDENT, "else: print 'Args:  <rule> [<filename>]'\n")
+            self.write(INDENT*2, "print(parse(argv[1], f.read()))\n")
+            self.write(INDENT, "else: print('Args:  <rule> [<filename>]')\n")
 
 ######################################################################
 class Node(object):
