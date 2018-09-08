@@ -280,10 +280,10 @@ class Eval(Node):
             gen.changed()
 
     def __str__(self):
-        return '{{ %s }}' % strip(self.expr)
+        return '{{ %s }}' % self.expr.strip()
 
     def output(self, gen, indent):
-        gen.write(indent, strip(self.expr), '\n')
+        gen.write(indent, self.expr.strip(), '\n')
         
 class NonTerminal(Node):
     def __init__(self, name, args):
@@ -743,11 +743,11 @@ def generate(inputfilename, outputfilename='', dump=0, **flags):
     s = open(inputfilename,'r').read()
 
     # See if there's a separation between the pre-parser and parser
-    f = find(s, DIVIDER)
+    f = s.find(DIVIDER)
     if f >= 0: preparser, s = s[:f]+'\n\n', s[f+len(DIVIDER):]
 
     # See if there's a separation between the parser and post-parser
-    f = find(s, DIVIDER)
+    f = s.find(DIVIDER)
     if f >= 0: s, postparser = s[:f], '\n\n'+s[f+len(DIVIDER):]
 
     # Create the parser and scanner

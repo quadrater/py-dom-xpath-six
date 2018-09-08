@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 # This module is needed to run generated parsers.
 
 from builtins import object
-from string import join, count, find, rfind
 import re
 
 class SyntaxError(Exception):
@@ -85,7 +84,7 @@ class Scanner(object):
             if best_pat == '(error)' and best_match < 0:
                 msg = "Bad Token"
                 if restrict:
-                    msg = "Trying to find one of "+join(restrict,", ")
+                    msg = "Trying to find one of "+", ".join(restrict)
                 raise SyntaxError(self.pos, msg)
 
             # If we found something that isn't to be ignored, return it
@@ -129,23 +128,23 @@ def print_error(input, err, scanner):
     """This is a really dumb long function to print error messages nicely."""
     p = err.pos
     # Figure out the line number
-    line = count(input[:p], '\n')
+    line = '\n'.count(input[:p])
     print(err.msg+" on line "+repr(line+1)+":")
     # Now try printing part of the line
     text = input[max(p-80, 0):p+80]
     p = p - max(p-80, 0)
 
     # Strip to the left
-    i = rfind(text[:p], '\n')
-    j = rfind(text[:p], '\r')
+    i = text[:p].rfind('\n')
+    j = text[:p].rfind('\r')
     if i < 0 or (0 <= j < i): i = j
     if 0 <= i < p:
         p = p - i - 1
         text = text[i+1:]
 
     # Strip to the right
-    i = find(text,'\n', p)
-    j = find(text,'\r', p)
+    i = text.find('\n', p)
+    j = text.find('\r', p)
     if i < 0 or (0 <= j < i): i = j
     if i >= 0:
         text = text[:i]
@@ -169,7 +168,7 @@ def wrap_error_reporter(parser, rule):
         try:
             print_error(input, s, parser._scanner)
         except ImportError:
-            print('Syntax Error',s.msg,'on line',1+count(input[:s.pos], '\n'))
+            print('Syntax Error',s.msg,'on line',1+'\n'.count(input[:s.pos]))
     except NoMoreTokens:
         print('Could not complete parsing; stopped around here:')
         print(parser._scanner)
