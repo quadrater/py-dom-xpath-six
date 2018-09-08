@@ -14,6 +14,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+from __future__ import unicode_literals
 import sys, os
 
 # If your extensions are in another directory, add it here. If the directory

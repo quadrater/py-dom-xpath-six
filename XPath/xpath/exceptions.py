@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 
 class XPathError(Exception):
     """Base exception class used for all XPath exceptions."""

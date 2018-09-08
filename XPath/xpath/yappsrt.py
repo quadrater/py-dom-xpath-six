@@ -1,4 +1,5 @@
 from __future__ import print_function
+from __future__ import unicode_literals
 # Yapps 2.0 Runtime
 #
 # This module is needed to run generated parsers.
