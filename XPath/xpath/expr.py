@@ -11,6 +11,7 @@ import operator
 import re
 import xml.dom
 import weakref
+import sys
 
 from xpath.exceptions import *
 import xpath
@@ -592,7 +593,10 @@ def axisfn(reverse=False, principal_node_type=xml.dom.Node.ELEMENT_NODE):
     attributes indicating the axis direction and principal node type.
     """
     def decorate(f):
-        f.__name__ = f.__name__.replace('_', '-')
+        if sys.version_info[0] < 3:
+            f.__name__ = f.__name__.replace(b'_', b'-')
+        else:
+            f.__name__ = f.__name__.replace('_', '-')
         f.reverse = reverse
         f.principal_node_type = principal_node_type
         return f
