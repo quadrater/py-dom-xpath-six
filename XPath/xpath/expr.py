@@ -16,6 +16,11 @@ import sys
 from xpath.exceptions import *
 import xpath
 
+# Workaround for Python 2 and 3 differences
+def _round(n):
+    if hasattr(math, 'isfinite') and not math.isfinite(n):
+        return n
+    return round(n)
 
 #
 # Data model functions.
@@ -475,7 +480,7 @@ class Function(Expr):
     @function(2, 3)
     def f_substring(self, node, pos, size, context, s, start, count=None):
         s = string(s)
-        start = round(number(start))
+        start = _round(number(start))
         if start != start:
             # Catch NaN
             return ''
@@ -483,7 +488,7 @@ class Function(Expr):
         if count is None:
             end = len(s) + 1
         else:
-            end = start + round(number(count))
+            end = start + _round(number(count))
             if end != end:
                 # Catch NaN
                 return ''
@@ -573,8 +578,8 @@ class Function(Expr):
     def f_round(self, node, pos, size, context, n):
         # XXX round(-0.0) should be -0.0, not 0.0.
         # XXX round(-1.5) should be -1.0, not -2.0.
-        return round(n)
-
+        return _round(n)
+        
     def __str__(self):
         return '%s(%s)' % (self.name, ', '.join((str(x) for x in self.args)))
 
