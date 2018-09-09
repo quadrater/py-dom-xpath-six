@@ -103,13 +103,13 @@ class TestAxes(unittest.TestCase):
 
         """
         a = xpath.find('//*', self.doc)
-        a.sort()
+        a.sort(key=id)
 
         b = []
         node = xpath.findnode('//*[@id="2.2"]', self.doc)
         for axis in ('ancestor','descendant','following','preceding','self'):
             b.extend(xpath.find('%s::*' % axis, node))
-        b.sort()
+        b.sort(key=id)
 
         self.failUnlessEqual(a, b)
 
