@@ -47,7 +47,7 @@ class build_py(_build_py):
 
         return modules
 
-setup(name="py-dom-xpath-redux",
+setup(name="py-dom-xpath-six",
       version="0.2",
       description="XPath for DOM trees",
       long_description="""\
@@ -56,10 +56,15 @@ supports almost all XPath 1.0, with the main exception being the
 namespace axis. It operates on DOM 2.0 nodes, and works well with
 xml.dom.minidom.
 
-py-dom-xpath requires Python 2.7 or 3.X or greater.""",
-      author='Andrew Cutler',
-      author_email='macropin@gmail.com',
-      url='https://github.com/macropin/py-dom-xpath-redux',
+py-dom-xpath-redux is a port of py-dom-xpath to enable pypi use.
+
+py-dom-xpath-six is a port of py-dom-xpath-redux to Python 3.
+ 
+py-dom-xpath-six requires Python 2.7 or 3.X or greater.
+""",
+      author='Jack Jansen',
+      author_email='Jack.Jansen@cwi.nl',
+      url='https://github.com/jackjansen/py-dom-xpath-six',
       packages=['xpath', 'yapps2'],
       cmdclass={
           'build_py':build_py,
