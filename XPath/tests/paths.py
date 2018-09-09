@@ -20,7 +20,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('child::para', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "3"])
 
     def test_all_children(self):
@@ -32,7 +32,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('child::*', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "2", "3"])
 
     def test_text_children(self):
@@ -40,7 +40,7 @@ class PathsTestCase(unittest.TestCase):
             <doc>This is <i>some</i> text.</doc>
         """).documentElement
         result = xpath.find('child::text()', doc)
-        self.failUnlessEqual([x.data for x in result],
+        self.assertEqual([x.data for x in result],
                              ["This is ", " text."])
 
     def test_node_children(self):
@@ -48,7 +48,7 @@ class PathsTestCase(unittest.TestCase):
             <doc>This is <i>some</i> text.</doc>
         """).documentElement
         result = xpath.find('child::node()', doc)
-        self.failUnlessEqual([x.nodeType for x in result],
+        self.assertEqual([x.nodeType for x in result],
                              [xml.dom.Node.TEXT_NODE,
                               xml.dom.Node.ELEMENT_NODE,
                               xml.dom.Node.TEXT_NODE])
@@ -58,7 +58,7 @@ class PathsTestCase(unittest.TestCase):
             <doc name="foo" value="bar" />
         """).documentElement
         result = xpath.find('attribute::name', doc)
-        self.failUnlessEqual([(x.name, x.value) for x in result],
+        self.assertEqual([(x.name, x.value) for x in result],
                              [('name', 'foo')])
 
     def test_all_attributes(self):
@@ -66,7 +66,7 @@ class PathsTestCase(unittest.TestCase):
             <doc name="foo" value="bar" />
         """).documentElement
         result = xpath.find('attribute::*', doc)
-        self.failUnlessEqual([(x.name, x.value) for x in result],
+        self.assertEqual([(x.name, x.value) for x in result],
                              [('name', 'foo'), ('value', 'bar')])
 
     def test_descendants(self):
@@ -79,7 +79,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('descendant::para', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "3"])
 
     def test_ancestors(self):
@@ -96,7 +96,7 @@ class PathsTestCase(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//context', doc)
         result = xpath.find('ancestor::div', node)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "2"])
 
     def test_ancestor_or_self(self):
@@ -111,7 +111,7 @@ class PathsTestCase(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//div[@id="3"]', doc)
         result = xpath.find('ancestor-or-self::div', node)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "3"])
 
     def test_descendant_or_self(self):
@@ -124,7 +124,7 @@ class PathsTestCase(unittest.TestCase):
             </para>
         """).documentElement
         result = xpath.find('descendant-or-self::para', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["0", "2", "3"])
 
     def test_self(self):
@@ -134,8 +134,8 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         para_node = xpath.findnode('para', doc)
-        self.failUnlessEqual(len(xpath.find('self::para', doc)), 0)
-        self.failUnlessEqual(len(xpath.find('self::para', para_node)), 1)
+        self.assertEqual(len(xpath.find('self::para', doc)), 0)
+        self.assertEqual(len(xpath.find('self::para', para_node)), 1)
 
     def test_child_descendant(self):
         doc = xml.dom.minidom.parseString("""
@@ -146,7 +146,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('child::chapter/descendant::para', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "2", "3"])
 
     def test_grandchildren(self):
@@ -158,7 +158,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('child::*/child::para', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "2", "3"])
         
     def test_root(self):
@@ -167,7 +167,7 @@ class PathsTestCase(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//context', doc)
         result = xpath.find('/', node)
-        self.failUnlessEqual([x.nodeType for x in result],
+        self.assertEqual([x.nodeType for x in result],
                              [xml.dom.Node.DOCUMENT_NODE])
         
     def test_root_descendant(self):
@@ -179,7 +179,7 @@ class PathsTestCase(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//context', doc)
         result = xpath.find('/descendant::para', node)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "2"])
 
     def test_olist_item(self):
@@ -194,7 +194,7 @@ class PathsTestCase(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//context', doc)
         result = xpath.find('/descendant::olist/child::item', node)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2", "3"])
 
     def test_first_child(self):
@@ -206,7 +206,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('child::para[position()=1]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2"])
 
     def test_last_child(self):
@@ -218,7 +218,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('child::para[position()=last()]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2"])
 
     def test_last_but_one_child(self):
@@ -231,7 +231,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('child::para[position()=last()-1]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2"])
 
     def test_all_but_first(self):
@@ -243,7 +243,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('child::para[position()>1]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["4", "6"])
 
     def test_next_sibling(self):
@@ -256,7 +256,7 @@ class PathsTestCase(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//context', doc)
         result = xpath.find('following-sibling::chapter[position()=1]', node)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["3"])
 
     def test_previous_sibling(self):
@@ -269,7 +269,7 @@ class PathsTestCase(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//context', doc)
         result = xpath.find('preceding-sibling::chapter[position()=1]', node)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2"])
 
     def test_figure_42(self):
@@ -283,7 +283,7 @@ class PathsTestCase(unittest.TestCase):
         x += '</doc>'
         doc = xml.dom.minidom.parseString(x).documentElement
         result = xpath.find('/descendant::figure[position()=42]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["41"])
 
     def test_section_5_2(self):
@@ -301,7 +301,7 @@ class PathsTestCase(unittest.TestCase):
         result = xpath.find(
                     '/child::doc/child::chapter[position()=5]/'
                     'child::section[position()=2]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["5.2"])
 
     def test_attr_equal(self):
@@ -314,7 +314,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('child::para[attribute::type="warning"]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2", "3"])
 
     def test_fifth_warning(self):
@@ -331,7 +331,7 @@ class PathsTestCase(unittest.TestCase):
         """).documentElement
         result = xpath.find(
                 'child::para[attribute::type="warning"][position()=5]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["7"])
 
     def test_fifth_if_warning(self):
@@ -348,7 +348,7 @@ class PathsTestCase(unittest.TestCase):
         """).documentElement
         result = xpath.find(
                 'child::para[position()=5][attribute::type="warning"]', doc)
-        self.failUnlessEqual(result, [])
+        self.assertEqual(result, [])
 
     def test_introductions(self):
         doc = xml.dom.minidom.parseString("""
@@ -363,7 +363,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find("child::chapter[child::title='Introduction']", doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2", "4"])
 
     def test_titles(self):
@@ -375,7 +375,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find("child::chapter[child::title]", doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2", "3"])
 
     def test_chapter_and_appendix(self):
@@ -388,7 +388,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find("child::*[self::chapter or self::appendix]", doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "2", "4"])
 
     def test_last_chapter_or_appendix(self):
@@ -403,7 +403,7 @@ class PathsTestCase(unittest.TestCase):
         """).documentElement
         result = xpath.find(
            "child::*[self::chapter or self::appendix][position()=last()]", doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["4"])
 
     def test_text_element(self):
@@ -413,7 +413,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """)
         result = xpath.find("//text", doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result], ["1"])
+        self.assertEqual([x.getAttribute("id") for x in result], ["1"])
 
     def test_node_element(self):
         doc = xml.dom.minidom.parseString("""
@@ -422,7 +422,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """)
         result = xpath.find("//node", doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result], ["1"])
+        self.assertEqual([x.getAttribute("id") for x in result], ["1"])
 
     def test_comment_element(self):
         doc = xml.dom.minidom.parseString("""
@@ -431,7 +431,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """)
         result = xpath.find("//comment", doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result], ["1"])
+        self.assertEqual([x.getAttribute("id") for x in result], ["1"])
 
     def test_pi_element(self):
         doc = xml.dom.minidom.parseString("""
@@ -440,7 +440,7 @@ class PathsTestCase(unittest.TestCase):
             </doc>
         """)
         result = xpath.find("//processing-instruction", doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result], ["1"])
+        self.assertEqual([x.getAttribute("id") for x in result], ["1"])
 
 if __name__ == '__main__':
     unittest.main()

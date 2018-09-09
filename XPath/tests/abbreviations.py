@@ -17,7 +17,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('para', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "3"])
 
     def test_all_children(self):
@@ -29,7 +29,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('*', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "2", "3"])
 
     def test_text_children(self):
@@ -37,7 +37,7 @@ class TestAbbreviations(unittest.TestCase):
             <doc>This is <i>some</i> text.</doc>
         """).documentElement
         result = xpath.find('text()', doc)
-        self.failUnlessEqual([x.data for x in result],
+        self.assertEqual([x.data for x in result],
                              ["This is ", " text."])
 
     def test_named_attribute(self):
@@ -45,7 +45,7 @@ class TestAbbreviations(unittest.TestCase):
             <doc name="foo" value="bar" />
         """).documentElement
         result = xpath.find('@name', doc)
-        self.failUnlessEqual([(x.name, x.value) for x in result],
+        self.assertEqual([(x.name, x.value) for x in result],
                              [('name', 'foo')])
 
     def test_all_attributes(self):
@@ -53,7 +53,7 @@ class TestAbbreviations(unittest.TestCase):
             <doc name="foo" value="bar" />
         """).documentElement
         result = xpath.find('@*', doc)
-        self.failUnlessEqual([(x.name, x.value) for x in result],
+        self.assertEqual([(x.name, x.value) for x in result],
                              [('name', 'foo'), ('value', 'bar')])
 
     def test_first_child(self):
@@ -63,7 +63,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('para[1]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1"])
 
     def test_last_child(self):
@@ -73,7 +73,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('para[last()]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["3"])
 
     def test_grandchildren(self):
@@ -85,7 +85,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('*/para', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "2", "3"])
         
     def test_section_5_2(self):
@@ -101,7 +101,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('/doc/chapter[5]/section[2]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["5.2"])
 
     def test_child_descendant(self):
@@ -113,7 +113,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('chapter//para', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "2", "3"])
 
     def test_absolute_descendant_or_self(self):
@@ -127,7 +127,7 @@ class TestAbbreviations(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//para[@id="2"]', doc)
         result = xpath.find('//para', node)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["0", "2", "3"])
 
     def test_olist_item(self):
@@ -142,7 +142,7 @@ class TestAbbreviations(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//context', doc)
         result = xpath.find('//olist/item', node)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2", "3"])
 
     def test_self(self):
@@ -152,7 +152,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('.', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["0"])
 
     def test_relative_descendant_or_self(self):
@@ -166,7 +166,7 @@ class TestAbbreviations(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//para[@id="2"]', doc)
         result = xpath.find('.//para', node)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["3"])
 
     def test_parent(self):
@@ -180,7 +180,7 @@ class TestAbbreviations(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//item[@id="3"]', doc)
         result = xpath.find('..', node)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1"])
 
     def test_parent_attr(self):
@@ -194,7 +194,7 @@ class TestAbbreviations(unittest.TestCase):
         """).documentElement
         node = xpath.findnode('//item[@id="3"]', doc)
         result = xpath.find('../@lang', node)
-        self.failUnlessEqual([x.value for x in result],
+        self.assertEqual([x.value for x in result],
                              ["en"])
 
     def test_attr_equal(self):
@@ -207,7 +207,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find('para[@type="warning"]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2", "3"])
 
     def test_fifth_warning(self):
@@ -224,7 +224,7 @@ class TestAbbreviations(unittest.TestCase):
         """).documentElement
         result = xpath.find(
                 'para[@type="warning"][5]', doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["7"])
 
     def test_fifth_if_warning(self):
@@ -241,7 +241,7 @@ class TestAbbreviations(unittest.TestCase):
         """).documentElement
         result = xpath.find(
                 'para[5][@type="warning"]', doc)
-        self.failUnlessEqual(result, [])
+        self.assertEqual(result, [])
 
     def test_introductions(self):
         doc = xml.dom.minidom.parseString("""
@@ -256,7 +256,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find("chapter[title='Introduction']", doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2", "4"])
 
     def test_titles(self):
@@ -268,7 +268,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find("chapter[title]", doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2", "3"])
 
     def test_secretary_and_assistant(self):
@@ -280,7 +280,7 @@ class TestAbbreviations(unittest.TestCase):
             </doc>
         """).documentElement
         result = xpath.find("employee[@secretary and @assistant]", doc)
-        self.failUnlessEqual([x.getAttribute("name") for x in result],
+        self.assertEqual([x.getAttribute("name") for x in result],
                              ["Dianne"])
 
 if __name__ == '__main__':

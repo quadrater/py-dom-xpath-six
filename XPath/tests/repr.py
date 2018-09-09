@@ -50,8 +50,8 @@ class TestRepr(unittest.TestCase):
             expr1 = xpath.XPath(query)
             expr2 = xpath.XPath(str(expr1))
             expr3 = eval(repr(expr2))
-            self.failUnlessEqual(str(expr1), str(expr2))
-            self.failUnlessEqual(str(expr1), str(expr3))
+            self.assertEqual(str(expr1), str(expr2))
+            self.assertEqual(str(expr1), str(expr3))
 
 if __name__ == '__main__':
     unittest.main()

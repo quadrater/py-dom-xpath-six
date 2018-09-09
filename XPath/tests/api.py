@@ -35,43 +35,43 @@ class TestAPI(unittest.TestCase):
 
         for f in functions:
             results[f] = invoke(xpath, f, expr, self.doc, **kwargs)
-            self.failUnlessEqual(results[f],
+            self.assertEqual(results[f],
                                  invoke(compiled, f, self.doc, **kwargs))
-            self.failUnlessEqual(results[f],
+            self.assertEqual(results[f],
                                  invoke(context, f, expr, self.doc, **kwargs))
 
             #results[f] = getattr(xpath, f)(expr, self.doc, **kwargs)
 
-            #self.failUnlessEqual(results[f],
+            #self.assertEqual(results[f],
             #                     getattr(compiled, f)(self.doc, **kwargs))
 
-            #self.failUnlessEqual(results[f],
+            #self.assertEqual(results[f],
             #                     getattr(context, f)(expr, self.doc, **kwargs))
 
         return results
 
     def test_empty_result(self):
         results = self.multitest('//item[@id=9]')
-        self.failUnlessEqual(results['find'], [])
-        self.failUnlessEqual(results['findnode'], None)
-        self.failUnlessEqual(results['findvalue'], None)
-        self.failUnlessEqual(results['findvalues'], [])
+        self.assertEqual(results['find'], [])
+        self.assertEqual(results['findnode'], None)
+        self.assertEqual(results['findvalue'], None)
+        self.assertEqual(results['findvalues'], [])
 
     def test_one_result(self):
         results = self.multitest('//item[@id=2]')
-        self.failUnlessEqual([x.getAttribute("id") for x in results['find']],
+        self.assertEqual([x.getAttribute("id") for x in results['find']],
                              ["2"])
-        self.failUnlessEqual(results['findnode'].getAttribute("id"), "2")
-        self.failUnlessEqual(results['findvalue'], 'lumberjack')
-        self.failUnlessEqual(results['findvalues'], ['lumberjack'])
+        self.assertEqual(results['findnode'].getAttribute("id"), "2")
+        self.assertEqual(results['findvalue'], 'lumberjack')
+        self.assertEqual(results['findvalues'], ['lumberjack'])
 
     def test_multiple_results(self):
         results = self.multitest('//item')
-        self.failUnlessEqual([x.getAttribute("id") for x in results['find']],
+        self.assertEqual([x.getAttribute("id") for x in results['find']],
                              ["1", "2", "3"])
-        self.failUnlessEqual(results['findnode'].getAttribute("id"), "1")
-        self.failUnlessEqual(results['findvalue'], 'argument')
-        self.failUnlessEqual(results['findvalues'],
+        self.assertEqual(results['findnode'].getAttribute("id"), "1")
+        self.assertEqual(results['findvalue'], 'argument')
+        self.assertEqual(results['findvalues'],
                              ['argument', 'lumberjack', 'parrot'])
 
     def test_variables(self):
@@ -85,35 +85,35 @@ class TestAPI(unittest.TestCase):
         results = self.multitest('//item[@id=$a div($var:b*$c)]',
                                  namespaces=namespaces,
                                  variables=variables, c=3)
-        self.failUnlessEqual([x.getAttribute("id") for x in results['find']],
+        self.assertEqual([x.getAttribute("id") for x in results['find']],
                              ["3"])
-        self.failUnlessEqual(results['findnode'].getAttribute("id"), "3")
-        self.failUnlessEqual(results['findvalue'], 'parrot')
-        self.failUnlessEqual(results['findvalues'], ['parrot'])
+        self.assertEqual(results['findnode'].getAttribute("id"), "3")
+        self.assertEqual(results['findvalue'], 'parrot')
+        self.assertEqual(results['findvalues'], ['parrot'])
 
     def test_default_namespace(self):
         results = self.multitest('//item',
                         default_namespace="http://porcupine.example.org/")
-        self.failUnlessEqual([x.getAttribute("id") for x in results['find']],
+        self.assertEqual([x.getAttribute("id") for x in results['find']],
                              ["4"])
-        self.failUnlessEqual(results['findnode'].getAttribute("id"), "4")
-        self.failUnlessEqual(results['findvalue'], 'porcupine')
-        self.failUnlessEqual(results['findvalues'], ['porcupine'])
+        self.assertEqual(results['findnode'].getAttribute("id"), "4")
+        self.assertEqual(results['findvalue'], 'porcupine')
+        self.assertEqual(results['findvalues'], ['porcupine'])
 
     def test_compiled_expr_argument(self):
         expr = xpath.XPath('//item[3]')
         result = xpath.findvalue(expr, self.doc)
-        self.failUnlessEqual(result, 'parrot')
+        self.assertEqual(result, 'parrot')
 
     def test_nonnode_result(self):
         results = self.multitest('1')
-        self.failUnlessEqual(results['find'], 1)
-        self.failUnlessEqual(results['findnode'], xpath.XPathTypeError)
-        self.failUnlessEqual(results['findvalue'], 1)
-        self.failUnlessEqual(results['findvalues'], xpath.XPathTypeError)
+        self.assertEqual(results['find'], 1)
+        self.assertEqual(results['findnode'], xpath.XPathTypeError)
+        self.assertEqual(results['findvalue'], 1)
+        self.assertEqual(results['findvalues'], xpath.XPathTypeError)
 
     def test_parse_error(self):
-        self.failUnlessRaises(xpath.XPathParseError,
+        self.assertRaises(xpath.XPathParseError,
                               xpath.find, 'child/parent', self.doc)
 
 class TestNamespacesAPI(unittest.TestCase):
@@ -134,21 +134,21 @@ class TestNamespacesAPI(unittest.TestCase):
     def test_empty_context(self):
         context = xpath.XPathContext()
         result = context.findvalues('//item', self.doc)
-        self.failUnlessEqual(result, [])
+        self.assertEqual(result, [])
 
     def test_explicit_document_context(self):
         nsdoc = xml.dom.minidom.parseString(
             """<doc xmlns="http://porcupine.example.org/" />""")
         context = xpath.XPathContext(nsdoc)
         result = context.findvalues('//item', self.doc)
-        self.failUnlessEqual(result, ['porcupine'])
+        self.assertEqual(result, ['porcupine'])
 
     def test_explicit_document_context_prefix(self):
         nsdoc = xml.dom.minidom.parseString(
             """<doc xmlns:pork="http://porcupine.example.org/" />""")
         context = xpath.XPathContext(nsdoc)
         result = context.findvalues('//pork:item', self.doc)
-        self.failUnlessEqual(result, ['porcupine'])
+        self.assertEqual(result, ['porcupine'])
 
 if __name__ == '__main__':
     unittest.main()

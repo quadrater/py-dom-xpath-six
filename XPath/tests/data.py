@@ -31,15 +31,15 @@ class TestDataModel(unittest.TestCase):
 
     def test_root_string_value(self):
         result = self.context.find('normalize-space(/)', self.doc)
-        self.failUnlessEqual(result, "<text> followed by more text")
+        self.assertEqual(result, "<text> followed by more text")
 
     def test_root_expanded_name(self):
         result = self.context.find('name(/)', self.doc)
-        self.failUnlessEqual(result, "")
+        self.assertEqual(result, "")
 
     def test_root_local_name(self):
         result = self.context.find('local-name(/)', self.doc)
-        self.failUnlessEqual(result, "")
+        self.assertEqual(result, "")
 
     #
     # 5.2 - Element Nodes
@@ -47,15 +47,15 @@ class TestDataModel(unittest.TestCase):
 
     def test_element_string_value(self):
         result = self.context.find('normalize-space(/doc)', self.doc)
-        self.failUnlessEqual(result, "<text> followed by more text")
+        self.assertEqual(result, "<text> followed by more text")
 
     def test_element_expanded_name(self):
         result = self.context.find('name(//a:item)', self.doc)
-        self.failUnlessEqual(result, "a:item")
+        self.assertEqual(result, "a:item")
 
     def test_element_local_name(self):
         result = self.context.find('local-name(//a:item)', self.doc)
-        self.failUnlessEqual(result, "item")
+        self.assertEqual(result, "item")
 
     #
     # 5.3 - Attribute Nodes
@@ -63,15 +63,15 @@ class TestDataModel(unittest.TestCase):
 
     def test_attribute_string_value(self):
         result = self.context.find('string(//@attribute)', self.doc)
-        self.failUnlessEqual(result, '"value"')
+        self.assertEqual(result, '"value"')
 
     def test_attribute_expanded_name(self):
         result = self.context.find('name(//@a:attribute)', self.doc)
-        self.failUnlessEqual(result, "a:attribute")
+        self.assertEqual(result, "a:attribute")
 
     def test_attribute_local_name(self):
         result = self.context.find('local-name(//@a:attribute)', self.doc)
-        self.failUnlessEqual(result, "attribute")
+        self.assertEqual(result, "attribute")
 
     #
     # 5.5 - Processing Instruction Nodes
@@ -80,17 +80,17 @@ class TestDataModel(unittest.TestCase):
     def test_pi_string_value(self):
         result = self.context.find('string(//processing-instruction())',
                                    self.doc)
-        self.failUnlessEqual(result, 'instruction ')
+        self.assertEqual(result, 'instruction ')
 
     def test_pi_expanded_name(self):
         result = self.context.find('name(//processing-instruction())',
                                    self.doc)
-        self.failUnlessEqual(result, "processing")
+        self.assertEqual(result, "processing")
 
     def test_pi_local_name(self):
         result = self.context.find('local-name(//processing-instruction())',
                                    self.doc)
-        self.failUnlessEqual(result, "processing")
+        self.assertEqual(result, "processing")
 
     #
     # 5.6 - Comment Nodes
@@ -98,15 +98,15 @@ class TestDataModel(unittest.TestCase):
 
     def test_comment_string_value(self):
         result = self.context.find('string(//comment())', self.doc)
-        self.failUnlessEqual(result, ' comment ')
+        self.assertEqual(result, ' comment ')
 
     def test_comment_expanded_name(self):
         result = self.context.find('name(//comment())', self.doc)
-        self.failUnlessEqual(result, "")
+        self.assertEqual(result, "")
 
     def test_comment_local_name(self):
         result = self.context.find('local-name(//comment())', self.doc)
-        self.failUnlessEqual(result, "")
+        self.assertEqual(result, "")
 
     #
     # 5.7 - Text Nodes
@@ -114,15 +114,15 @@ class TestDataModel(unittest.TestCase):
 
     def test_text_string_value(self):
         result = self.context.find('string(//element/text())', self.doc)
-        self.failUnlessEqual(result, '<text>')
+        self.assertEqual(result, '<text>')
 
     def test_text_expanded_name(self):
         result = self.context.find('name(//element/text())', self.doc)
-        self.failUnlessEqual(result, "")
+        self.assertEqual(result, "")
 
     def test_text_local_name(self):
         result = self.context.find('local-name(//element/text())', self.doc)
-        self.failUnlessEqual(result, "")
+        self.assertEqual(result, "")
 
 if __name__ == '__main__':
     unittest.main()

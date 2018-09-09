@@ -39,62 +39,62 @@ class TestAxes(unittest.TestCase):
 
     def test_child_axis(self):
         result = xpath.find('//*[@id="2"]/child::*', self.doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2.1", "2.2", "2.3"])
 
     def test_parent_axis(self):
         result = xpath.find('//*[@id="2.2"]/parent::*', self.doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2"])
 
     def test_ancestor_axis(self):
         result = xpath.find('//*[@id="2.2"]/ancestor::*', self.doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["0", "2"])
 
     def test_following_sibling_axis(self):
         result = xpath.find('//*[@id="2.2"]/following-sibling::*', self.doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2.3"])
 
     def test_preceding_sibling_axis(self):
         result = xpath.find('//*[@id="2.2"]/preceding-sibling::*', self.doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2.1"])
 
     def test_following_axis(self):
         result = xpath.find('//*[@id="2.2"]/following::*', self.doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2.3", "2.3.1", "3", "3.1", "3.1.1"])
 
     def test_preceding_axis(self):
         result = xpath.find('//*[@id="2.2"]/preceding::*', self.doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "1.1", "1.1.1", "2.1", "2.1.1"])
 
     def test_attribute_axis(self):
         result = xpath.find('//*[@id="2.2"]/attribute::*', self.doc)
-        self.failUnlessEqual([x.value for x in result],
+        self.assertEqual([x.value for x in result],
                              ['2.2'])
 
     def test_namespace_axis(self):
-        self.failUnlessRaises(xpath.XPathNotImplementedError,
+        self.assertRaises(xpath.XPathNotImplementedError,
                               xpath.find,
                               '//*[@id="2.2"]/namespace::*', self.doc)
 
     def test_self_axis(self):
         result = xpath.find('//*[@id="2.2"]/self::*', self.doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["2.2"])
 
     def test_descendant_or_self_axis(self):
         result = xpath.find('//*[@id="1"]/descendant-or-self::*', self.doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["1", "1.1", "1.1.1"])
 
     def test_ancestor_or_self_axis(self):
         result = xpath.find('//*[@id="2.2"]/ancestor-or-self::*', self.doc)
-        self.failUnlessEqual([x.getAttribute("id") for x in result],
+        self.assertEqual([x.getAttribute("id") for x in result],
                              ["0", "2", "2.2"])
 
     def test_partition(self):
@@ -111,7 +111,7 @@ class TestAxes(unittest.TestCase):
             b.extend(xpath.find('%s::*' % axis, node))
         b.sort(key=id)
 
-        self.failUnlessEqual(a, b)
+        self.assertEqual(a, b)
 
 if __name__ == '__main__':
     unittest.main()
