@@ -66,7 +66,9 @@ class PathsTestCase(unittest.TestCase):
             <doc name="foo" value="bar" />
         """).documentElement
         result = xpath.find('attribute::*', doc)
-        self.assertEqual([(x.name, x.value) for x in result],
+        resultValues = [(x.name, x.value) for x in result]
+        resultValues.sort()
+        self.assertEqual(resultValues,
                              [('name', 'foo'), ('value', 'bar')])
 
     def test_descendants(self):
