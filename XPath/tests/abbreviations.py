@@ -53,7 +53,9 @@ class TestAbbreviations(unittest.TestCase):
             <doc name="foo" value="bar" />
         """).documentElement
         result = xpath.find('@*', doc)
-        self.assertEqual([(x.name, x.value) for x in result],
+        resultValues = [(x.name, x.value) for x in result]
+        resultValues.sort()
+        self.assertEqual(resultValues,
                              [('name', 'foo'), ('value', 'bar')])
 
     def test_first_child(self):
