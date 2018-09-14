@@ -1,3 +1,10 @@
+py-dom-xpath-six is a version of py-dom-xpath that is compatible
+with Python 2.7 and Python 3.6 and later. It is a fork
+of py-dom-xpath-redux, which in turn is a fork of the original
+py-dom-xpath.
+
+Here is the original README file:
+
 py-dom-xpath is a pure Python implementation of XPath 1.0. It
 supports almost all XPath 1.0, with the main exception being the
 namespace axis. It operates on DOM 2.0 nodes, and works well with

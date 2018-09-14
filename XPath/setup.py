@@ -62,9 +62,12 @@ py-dom-xpath-six is a port of py-dom-xpath-redux to Python 3.
  
 py-dom-xpath-six requires Python 2.7 or 3.X or greater.
 """,
-      author='Jack Jansen',
-      author_email='Jack.Jansen@cwi.nl',
+      maintainer='Jack Jansen',
+      maintainer_email='Jack.Jansen@cwi.nl',
       url='https://github.com/jackjansen/py-dom-xpath-six',
+      author="Damien Neil",
+      author_email="damien.neil@gmail.com",
+      install_requires=["future"],
       packages=['xpath', 'yapps2'],
       cmdclass={
           'build_py':build_py,
