@@ -48,7 +48,7 @@ class build_py(_build_py):
         return modules
 
 setup(name="py-dom-xpath-six",
-      version="0.2",
+      version="0.2.1",
       description="XPath for DOM trees",
       long_description="""\
 py-dom-xpath is a pure Python implementation of XPath 1.0. It
