@@ -8,6 +8,18 @@ from setuptools import setup, find_packages
 from setuptools.command.build_py import build_py as _build_py
 from setuptools.command.test import test as _test
 
+# yapps needs future. We use a trick (from <https://stackoverflow.com/questions/44308548/how-should-i-handle-importing-third-party-libraries-within-my-setup-py-script>)
+# to ensure we have it.
+try:
+    import future
+except ImportError:
+    import pip
+    if hasattr(pip, 'main'):
+        pip.main(['install', 'future'])
+    else:
+        import pip._internal
+        pip._internal.main(['install', 'future'])
+    import future
 # Include yapps2 from the local build directory.
 sys.path.insert(0, 'yapps2')
 import yapps2
@@ -48,7 +60,7 @@ class build_py(_build_py):
         return modules
 
 setup(name="py-dom-xpath-six",
-      version="0.2.1",
+      version="0.2.2",
       description="XPath for DOM trees",
       long_description="""\
 py-dom-xpath is a pure Python implementation of XPath 1.0. It
