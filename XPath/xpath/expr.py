@@ -694,11 +694,12 @@ def make_axes():
 
 make_axes()
 
-def merge_into_nodeset(target, source):
+def merge_into_nodeset(target, source, dontsort=False):
     """Place all the nodes from the source node-set into the target
     node-set, preserving document order.  Both node-sets must be in
     document order to begin with.
-
+    If dontsort is True the resulting list isn't sorted, but in stead a True
+    value is returned to indicate sorting needs to be done later.
     """
     if len(target) == 0:
         target.extend(source)
@@ -717,6 +718,8 @@ def merge_into_nodeset(target, source):
         target.extend(source)
     else:
         target.extend(source)
+        if dontsort:
+            return True
         target.sort(key=document_order)
 
 class AbsolutePathExpr(Expr):
@@ -752,15 +755,19 @@ class PathExpr(Expr):
 
         # Subsequent steps are evaluated for each node in the node-set
         # resulting from the previous step.
+        needSort = False
         for step in self.steps[1:]:
             aggregate = []
             for i in range(len(result)):
                 nodes = step.evaluate(result[i], i+1, len(result), context)
                 if not nodesetp(nodes):
                     raise XPathTypeError("path step is not a node-set")
-                merge_into_nodeset(aggregate, nodes)
+                needSortNow = merge_into_nodeset(aggregate, nodes, dontsort=True)
+                needSort = needSort or needSortNow
             result = aggregate
 
+        if needSort:
+            result.sort(key=document_order)
         return result
 
     def __str__(self):

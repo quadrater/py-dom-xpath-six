@@ -3,6 +3,9 @@ with Python 2.7 and Python 3.6 and later. It is a fork
 of py-dom-xpath-redux, which in turn is a fork of the original
 py-dom-xpath.
 
+Changes in 0.2.3:
+- Optimized sorting of nodesets in document order: do only at end of expression.
+
 Here is the original README file:
 
 py-dom-xpath is a pure Python implementation of XPath 1.0. It
