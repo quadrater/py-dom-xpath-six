@@ -8,10 +8,6 @@ from setuptools import setup, find_packages
 from setuptools.command.build_py import build_py as _build_py
 from setuptools.command.test import test as _test
 
-# Include yapps2 from the local build directory.
-sys.path.insert(0, 'yapps2')
-import yapps2
-
 class test(_test):
     # Specialization of the setuptools test command, which adds the build_py
     # step as a prerequisite.
@@ -29,6 +25,10 @@ class build_py(_build_py):
         self.yapps = {}
 
     def build_module(self, module, source, package):
+        # Include yapps2 from the local build directory.
+        sys.path.insert(0, 'yapps2')
+        import yapps2
+
         if source in self.yapps:
             yapps2.generate(self.yapps[source], source)
         return _build_py.build_module(self, module, source, package)
