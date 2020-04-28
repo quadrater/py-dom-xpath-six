@@ -1,10 +1,3 @@
-from __future__ import division
-from __future__ import unicode_literals
-from builtins import zip
-from builtins import str
-from builtins import range
-from past.builtins import basestring
-from builtins import object
 from itertools import *
 import math
 import operator
@@ -129,7 +122,7 @@ def string(v):
 
 def stringp(v):
     """Return true iff 'v' is a string."""
-    return isinstance(v, basestring)
+    return isinstance(v, (bytes, str))
 
 def boolean(v):
     """Convert a value to a boolean."""

@@ -8,18 +8,6 @@ from setuptools import setup, find_packages
 from setuptools.command.build_py import build_py as _build_py
 from setuptools.command.test import test as _test
 
-# yapps needs future. We use a trick (from <https://stackoverflow.com/questions/44308548/how-should-i-handle-importing-third-party-libraries-within-my-setup-py-script>)
-# to ensure we have it.
-try:
-    import future
-except ImportError:
-    import pip
-    if hasattr(pip, 'main'):
-        pip.main(['install', 'future'])
-    else:
-        import pip._internal
-        pip._internal.main(['install', 'future'])
-    import future
 # Include yapps2 from the local build directory.
 sys.path.insert(0, 'yapps2')
 import yapps2
@@ -86,7 +74,6 @@ py-dom-xpath-six requires Python 2.7 or 3.X or greater.
         "Operating System :: OS Independent",
         "Topic :: Text Processing :: Markup :: XML",
       ],
-      install_requires=["future"],
       packages=['xpath', 'yapps2'],
       cmdclass={
           'build_py':build_py,
