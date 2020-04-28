@@ -68,7 +68,6 @@ py-dom-xpath-six requires Python 2.7 or 3.X or greater.
       author="Damien Neil",
       author_email="damien.neil@gmail.com",
       classifiers=[
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
