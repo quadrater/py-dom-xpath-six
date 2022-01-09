@@ -1,5 +1,3 @@
-from __future__ import print_function
-from __future__ import unicode_literals
 ######################################################################
 # The remainder of this file is from parsedesc.{g,py}
 

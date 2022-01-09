@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from __future__ import unicode_literals
 import unittest
 import xml.dom.minidom
 import xpath
