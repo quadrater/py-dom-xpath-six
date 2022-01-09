@@ -4,8 +4,9 @@ import xpath.expr
 import xpath.parser
 import xpath.yappsrt
 
-__all__ = ['find', 'findnode', 'findvalue', 'XPathContext', 'XPath']
-__all__.extend((x for x in dir(xpath.exceptions) if not x.startswith('_')))
+__all__ = ["find", "findnode", "findvalue", "XPathContext", "XPath"]
+__all__.extend((x for x in dir(xpath.exceptions) if not x.startswith("_")))
+
 
 def api(f):
     """Decorator for functions and methods that are part of the external
@@ -16,14 +17,17 @@ def api(f):
     trim the stack.
 
     """
+
     def api_function(*args, **kwargs):
         try:
             return f(*args, **kwargs)
         except XPathError as e:
             raise e
+
     api_function.__name__ = f.__name__
     api_function.__doc__ = f.__doc__
     return api_function
+
 
 class XPathContext(object):
     def __init__(self, document=None, **kwargs):
@@ -37,9 +41,9 @@ class XPathContext(object):
             if document.documentElement is not None:
                 attrs = document.documentElement.attributes
                 for attr in (attrs.item(i) for i in range(attrs.length)):
-                    if attr.name == 'xmlns':
+                    if attr.name == "xmlns":
                         self.default_namespace = attr.value
-                    elif attr.name.startswith('xmlns:'):
+                    elif attr.name.startswith("xmlns:"):
                         self.namespaces[attr.name[6:]] = attr.value
 
         self.update(**kwargs)
@@ -51,8 +55,7 @@ class XPathContext(object):
         dup.variables.update(self.variables)
         return dup
 
-    def update(self, default_namespace=None, namespaces=None,
-                  variables=None, **kwargs):
+    def update(self, default_namespace=None, namespaces=None, variables=None, **kwargs):
         if default_namespace is not None:
             self.default_namespace = default_namespace
         if namespaces is not None:
@@ -77,13 +80,13 @@ class XPathContext(object):
     def findvalues(self, expr, node, **kwargs):
         return xpath.findvalues(expr, node, context=self, **kwargs)
 
+
 class XPath(object):
     _max_cache = 100
     _cache = {}
 
     def __init__(self, expr):
-        """Init docs.
-        """
+        """Init docs."""
         try:
             parser = xpath.parser.XPath(xpath.parser.XPathScanner(str(expr)))
             self.expr = parser.XPath()
@@ -138,24 +141,30 @@ class XPath(object):
         return [xpath.expr.string_value(x) for x in result]
 
     def __repr__(self):
-        return '%s.%s(%s)' % (self.__class__.__module__,
-                              self.__class__.__name__,
-                              repr(str(self.expr)))
+        return "%s.%s(%s)" % (
+            self.__class__.__module__,
+            self.__class__.__name__,
+            repr(str(self.expr)),
+        )
 
     def __str__(self):
         return str(self.expr)
+
 
 @api
 def find(expr, node, **kwargs):
     return XPath.get(expr).find(node, **kwargs)
 
+
 @api
 def findnode(expr, node, **kwargs):
     return XPath.get(expr).findnode(node, **kwargs)
 
+
 @api
 def findvalue(expr, node, **kwargs):
     return XPath.get(expr).findvalue(node, **kwargs)
+
 
 @api
 def findvalues(expr, node, **kwargs):
