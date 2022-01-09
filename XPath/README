@@ -1,7 +1,6 @@
-py-dom-xpath-six is a version of py-dom-xpath that is compatible
-with Python 2.7 and Python 3.6 and later. It is a fork
-of py-dom-xpath-redux, which in turn is a fork of the original
-py-dom-xpath.
+py-dom-xpath-six is a version of py-dom-xpath that is compatible with Python
+3.6 and later. It is a fork of py-dom-xpath-redux, which in turn is a fork of
+the original py-dom-xpath.
 
 Changes in 0.2.4:
 - Fix compatibility issue with Python 3

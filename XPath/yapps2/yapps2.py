@@ -26,16 +26,6 @@
 # * Style change: replaced raise "string exception" with raise
 #   ClassException(...) (thanks Alex Verstak)
 
-from __future__ import print_function
-from __future__ import division
-from __future__ import unicode_literals
-from future import standard_library
-standard_library.install_aliases()
-from builtins import filter
-from builtins import str
-from builtins import range
-from builtins import object
-from past.utils import old_div
 from yappsrt import *
 import sys
 import re
@@ -112,7 +102,7 @@ class Generator(object):
     def in_test(self, x, full, b):
         if not b: return '0'
         if len(b) == 1: return '%s == %s' % (x, repr(b[0]))
-        if full and len(b) > old_div(len(full),2):
+        if full and len(b) > (len(full) // 2):
             # Reverse the sense of the test.
             not_b = list(filter(lambda x, b=b: x not in b, full))
             return self.not_in_test(x, full, not_b)
@@ -171,7 +161,6 @@ class Generator(object):
                 for x in top.get_children(): queue.append(x)
                 
     def generate_output(self):
-        self.write("from __future__ import print_function\n")
         self.calculate()
         self.write(self.preparser)
         # TODO: remove "import *" construct

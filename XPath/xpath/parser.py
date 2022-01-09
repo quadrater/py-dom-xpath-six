@@ -1,4 +1,3 @@
-from __future__ import print_function
 import xpath.expr as X
 from xpath.yappsrt import *
 
