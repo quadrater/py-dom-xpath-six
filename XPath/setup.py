@@ -47,26 +47,7 @@ class build_py(_build_py):
 
         return modules
 
-def read_readme():
-    this_directory = os.path.abspath(os.path.dirname(__file__))
-    with open(os.path.join(this_directory, 'README'), encoding='utf-8') as fob:
-        return fob.read()
-
-setup(name="py-dom-xpath-six",
-      version="0.2.4",
-      description="XPath for DOM trees",
-      long_description=read_readme(),
-      maintainer='Jack Jansen',
-      maintainer_email='Jack.Jansen@cwi.nl',
-      url='https://github.com/jackjansen/py-dom-xpath-six',
-      author="Damien Neil",
-      author_email="damien.neil@gmail.com",
-      classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-        "Topic :: Text Processing :: Markup :: XML",
-      ],
+setup(
       packages=['xpath', 'yapps2'],
       cmdclass={
           'build_py':build_py,
