@@ -1,9 +1,16 @@
+py-dom-xpath is a pure Python implementation of XPath 1.0. It
+supports almost all XPath 1.0, with the main exception being the
+namespace axis. It operates on DOM 2.0 nodes, and works well with
+xml.dom.minidom, but also with other xml.dom implementations.
+
 py-dom-xpath-six is a version of py-dom-xpath that is compatible with Python
 3.6 and later. It is a fork of py-dom-xpath-redux, which in turn is a fork of
 the original py-dom-xpath.
 
 Changes in 0.2.4:
 - Fix compatibility issue with Python 3
+- Got rid of Python 2 support
+- Minor changes to update to newer standards for pypi, etc.
 
 Changes in 0.2.3:
 - Optimized sorting of nodesets in document order: do only at end of expression.
