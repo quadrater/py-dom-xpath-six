@@ -5,7 +5,20 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
-[project.optional-dependencies]
-test = [
-    "pytest"
+[project]
+name = "py-dom-xpath-six"
+version = "0.2.4"
+description = "XPath for DOM trees"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.6"
+authors = [
+  { name = "Damien Neil" }
 ]
+license = { text = "MIT" }
+
+# if you still want your classifiers & urls from setup.py, you can
+# declare them dynamic instead of re-typing them here:
+dynamic = ["classifiers", "urls"]
+
+[project.optional-dependencies]
+test = ["pytest"]
