@@ -1,2 +1,17 @@
 build
 .tox
+
+# Generated documentation
+doc/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+*.egg-info/
+
+# Testing artifacts
+.pytest_cache/
