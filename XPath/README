@@ -26,8 +26,8 @@ xml.dom.minidom.
 py-dom-xpath-six requires Python 3.6 or greater.
 
 py-dom-xpath uses the Yapps 2 parser generator by Amit J. Patel.
-Portions of of Yapps 2 are included in this distribution, to avoid
-introducing external dependencies.
+The package now relies on the standard `yapps2` distribution available
+from PyPI instead of bundling a local copy.
 
 py-dom-xpath was developed at Nominum. Nominum has graciously
 permitted the author to release it under the MIT license.

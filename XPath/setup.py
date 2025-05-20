@@ -25,8 +25,7 @@ class build_py(_build_py):
         self.yapps = {}
 
     def build_module(self, module, source, package):
-        # Include yapps2 from the local build directory.
-        sys.path.insert(0, 'yapps2')
+        # Use the yapps2 package installed in the environment.
         import yapps2
 
         if source in self.yapps:
@@ -48,10 +47,11 @@ class build_py(_build_py):
         return modules
 
 setup(
-      packages=['xpath', 'yapps2'],
+      packages=['xpath'],
       cmdclass={
           'build_py':build_py,
           'test':test,
       },
+      install_requires=['yapps2'],
       test_suite='tests',
       )

@@ -20,5 +20,9 @@ license = { text = "MIT" }
 # declare them dynamic instead of re-typing them here:
 dynamic = ["classifiers", "urls"]
 
+dependencies = [
+    "yapps2"
+]
+
 [project.optional-dependencies]
 test = ["pytest"]
