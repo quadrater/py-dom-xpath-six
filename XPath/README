@@ -5,7 +5,8 @@ xml.dom.minidom, but also with other xml.dom implementations.
 
 py-dom-xpath-six is a version of py-dom-xpath that is compatible with Python
 3.6 and later. It is a fork of py-dom-xpath-redux, which in turn is a fork of
-the original py-dom-xpath.
+the original py-dom-xpath.  This package therefore requires Python 3.6 or
+newer.
 
 Changes in 0.2.4:
 - Fix compatibility issue with Python 3
@@ -22,7 +23,7 @@ supports almost all XPath 1.0, with the main exception being the
 namespace axis. It operates on DOM 2.0 nodes, and works well with
 xml.dom.minidom.
 
-py-dom-xpath requires Python 2.5 or greater.
+py-dom-xpath-six requires Python 3.6 or greater.
 
 py-dom-xpath uses the Yapps 2 parser generator by Amit J. Patel.
 Portions of of Yapps 2 are included in this distribution, to avoid
