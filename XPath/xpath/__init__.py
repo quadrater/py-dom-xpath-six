@@ -8,6 +8,7 @@ from xpath.exceptions import (
     XPathUnknownVariableError,
 )
 import xpath.exceptions
+from functools import wraps
 import xpath.expr
 import xpath.parser
 import xpath.yappsrt
@@ -26,14 +27,13 @@ def api(f):
 
     """
 
+    @wraps(f)
     def api_function(*args, **kwargs):
         try:
             return f(*args, **kwargs)
         except XPathError as e:
             raise e
 
-    api_function.__name__ = f.__name__
-    api_function.__doc__ = f.__doc__
     return api_function
 
 
