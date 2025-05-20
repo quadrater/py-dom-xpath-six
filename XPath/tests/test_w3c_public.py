@@ -31,5 +31,3 @@ class TestW3CPublicCases(unittest.TestCase):
                 self.eval_expr(case['expr'], case['type'], case['expected'])
 
 
-if __name__ == '__main__':
-    unittest.main()

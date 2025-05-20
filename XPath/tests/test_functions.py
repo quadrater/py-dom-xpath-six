@@ -428,5 +428,3 @@ class TestNumberFunctions(unittest.TestCase):
         result = xpath.find('round(-1 div 0)', self.doc)
         self.assertEqual(result, float('-inf'))
 
-if __name__ == '__main__':
-    unittest.main()

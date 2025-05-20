@@ -284,5 +284,3 @@ class TestAbbreviations(unittest.TestCase):
         self.assertEqual([x.getAttribute("name") for x in result],
                              ["Dianne"])
 
-if __name__ == '__main__':
-    unittest.main()

@@ -149,5 +149,3 @@ class TestNamespacesAPI(unittest.TestCase):
         result = context.findvalues('//pork:item', self.doc)
         self.assertEqual(result, ['porcupine'])
 
-if __name__ == '__main__':
-    unittest.main()

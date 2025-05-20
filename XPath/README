@@ -35,3 +35,15 @@ permitted the author to release it under the MIT license.
 For further details, visit the project home page at:
 
     http://code.google.com/p/py-dom-xpath/
+
+Running the test suite
+----------------------
+
+The preferred way to run the tests is with `pytest`::
+
+    pytest -q
+
+If `pytest` is not available, you can still run the tests with the
+standard library `unittest` module::
+
+    python -m unittest discover -s XPath/tests -p 'test_*.py' -v

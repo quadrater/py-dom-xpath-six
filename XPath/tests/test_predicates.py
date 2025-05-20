@@ -87,5 +87,3 @@ class TestPredicates(unittest.TestCase):
         self.assertEqual([x.getAttribute("id") for x in result],
                              ["2"])
 
-if __name__ == '__main__':
-    unittest.main()
