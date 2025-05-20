@@ -1,0 +1,6 @@
+[
+  {"expr": "count(/bookstore/book)", "type": "number", "expected": 4},
+  {"expr": "string(/bookstore/book[1]/title)", "type": "string", "expected": "Everyday Italian"},
+  {"expr": "//book[@category='WEB']/title/text()", "type": "nodeset", "expected": ["XQuery Kick Start", "Learning XML"]},
+  {"expr": "(/bookstore/book/title)[last()]", "type": "string", "expected": "Learning XML"}
+]
