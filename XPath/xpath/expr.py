@@ -4,7 +4,6 @@ import operator
 import re
 import xml.dom
 import weakref
-import sys
 
 from xpath.exceptions import (
     XPathNotImplementedError,
@@ -632,10 +631,7 @@ def axisfn(reverse=False, principal_node_type=xml.dom.Node.ELEMENT_NODE):
     """
 
     def decorate(f):
-        if sys.version_info[0] < 3:
-            f.__name__ = f.__name__.replace(b"_", b"-")
-        else:
-            f.__name__ = f.__name__.replace("_", "-")
+        f.__name__ = f.__name__.replace("_", "-")
         f.reverse = reverse
         f.principal_node_type = principal_node_type
         return f
