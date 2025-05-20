@@ -10,7 +10,7 @@ name = "py-dom-xpath-six"
 version = "0.2.4"
 description = "XPath for DOM trees"
 readme = { file = "README.md", content-type = "text/markdown" }
-requires-python = ">=3.6"
+requires-python = ">=3.8"
 authors = [
   { name = "Damien Neil" }
 ]
