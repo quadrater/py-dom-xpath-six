@@ -2,7 +2,10 @@
 #
 # This module is needed to run generated parsers.
 
+import logging
 import re
+
+logger = logging.getLogger(__name__)
 
 
 class SyntaxError(Exception):
@@ -141,7 +144,7 @@ def print_error(input, err, scanner):
     p = err.pos
     # Figure out the line number
     line = "\n".count(input[:p])
-    print(err.msg + " on line " + repr(line + 1) + ":")
+    logger.error("%s on line %d:", err.msg, line + 1)
     # Now try printing part of the line
     text = input[max(p - 80, 0) : p + 80]
     p = p - max(p - 80, 0)
@@ -170,9 +173,9 @@ def print_error(input, err, scanner):
         p = p - 7
 
     # Now print the string, along with an indicator
-    print("> ", text)
-    print("> ", " " * p + "^")
-    print("List of nearby tokens:", scanner)
+    logger.error("> %s", text)
+    logger.error("> %s", " " * p + "^")
+    logger.error("List of nearby tokens: %s", scanner)
 
 
 def wrap_error_reporter(parser, rule):
@@ -183,8 +186,12 @@ def wrap_error_reporter(parser, rule):
         try:
             print_error(input, s, parser._scanner)
         except ImportError:
-            print("Syntax Error", s.msg, "on line", 1 + "\n".count(input[: s.pos]))
+            logger.error(
+                "Syntax Error %s on line %d",
+                s.msg,
+                1 + "\n".count(input[: s.pos]),
+            )
     except NoMoreTokens:
-        print("Could not complete parsing; stopped around here:")
-        print(parser._scanner)
+        logger.error("Could not complete parsing; stopped around here:")
+        logger.error("%s", parser._scanner)
     return return_value
