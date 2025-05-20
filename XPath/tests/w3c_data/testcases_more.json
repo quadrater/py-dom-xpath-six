@@ -1,0 +1,8 @@
+[
+  {"expr": "//book[price>35]/title/text()", "type": "nodeset", "expected": ["XQuery Kick Start", "Learning XML"]},
+  {"expr": "sum(/bookstore/book/price)", "type": "number", "expected": 149.93},
+  {"expr": "name(/bookstore/book[1])", "type": "string", "expected": "book"},
+  {"expr": "count(/bookstore/book/author)", "type": "number", "expected": 8},
+  {"expr": "//book[price<40]/title/text()", "type": "nodeset", "expected": ["Everyday Italian", "Harry Potter", "Learning XML"]},
+  {"expr": "count(/bookstore/book[@category='WEB'])", "type": "number", "expected": 2}
+]

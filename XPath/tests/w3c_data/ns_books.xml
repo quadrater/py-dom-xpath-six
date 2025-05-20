@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<bookstore xmlns="http://example.com/book" xmlns:bk="http://example.com/book">
+  <book category="WEB">
+    <title lang="en">Book One</title>
+    <price>10</price>
+  </book>
+  <bk:book category="WEB">
+    <bk:title lang="en">Book Two</bk:title>
+    <bk:price>20</bk:price>
+  </bk:book>
+</bookstore>
