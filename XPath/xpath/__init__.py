@@ -17,7 +17,7 @@ import xpath.exceptions
 from functools import wraps
 import xpath.expr
 import xpath.parser
-import xpath.yappsrt
+from yapps import runtime as yappsrt
 
 __all__ = ["find", "findnode", "findvalue", "XPathContext", "XPath"]
 __all__.extend((x for x in dir(xpath.exceptions) if not x.startswith("_")))
@@ -112,7 +112,7 @@ class XPath(object):
         try:
             parser = xpath.parser.XPath(xpath.parser.XPathScanner(str(expr)))
             self.expr = parser.XPath()
-        except xpath.yappsrt.SyntaxError as e:
+        except yappsrt.SyntaxError as e:
             raise XPathParseError(str(expr), e.pos, e.msg)
 
     @classmethod
