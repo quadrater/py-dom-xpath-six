@@ -1,5 +1,5 @@
 import xpath.expr as X
-from xpath.yappsrt import *
+from xpath.yappsrt import Parser, Scanner, wrap_error_reporter
 
 %%
 

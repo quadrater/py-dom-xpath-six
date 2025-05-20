@@ -35,9 +35,8 @@ def resolve_name(tokens, id, args):
         return NonTerminal(id, args)
 
 
-from string import *
 import re
-from yappsrt import *
+from yappsrt import Parser, Scanner, SyntaxError, wrap_error_reporter
 
 class ParserDescriptionScanner(Scanner):
     patterns = [
