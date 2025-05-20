@@ -1,4 +1,12 @@
-from xpath.exceptions import *
+from xpath.exceptions import (
+    XPathError,
+    XPathNotImplementedError,
+    XPathParseError,
+    XPathTypeError,
+    XPathUnknownFunctionError,
+    XPathUnknownPrefixError,
+    XPathUnknownVariableError,
+)
 import xpath.exceptions
 import xpath.expr
 import xpath.parser

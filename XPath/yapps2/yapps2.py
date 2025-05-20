@@ -26,7 +26,7 @@
 # * Style change: replaced raise "string exception" with raise
 #   ClassException(...) (thanks Alex Verstak)
 
-from yappsrt import *
+from yappsrt import Parser, Scanner, SyntaxError, wrap_error_reporter
 import sys
 import re
 
@@ -163,10 +163,11 @@ class Generator(object):
     def generate_output(self):
         self.calculate()
         self.write(self.preparser)
-        # TODO: remove "import *" construct
         self.write("import re\n")
         if not self['no-support-module']:
-            self.write("from yappsrt import *\n")
+            self.write(
+                "from yappsrt import Parser, Scanner, SyntaxError, wrap_error_reporter\n"
+            )
         self.write("\n")
         self.write("class ", self.name, "Scanner(Scanner):\n")
         self.write("    patterns = [\n")
@@ -561,9 +562,8 @@ def resolve_name(tokens, id, args):
         return NonTerminal(id, args)
 
 
-from string import *
 import re
-from yappsrt import *
+from yappsrt import Parser, Scanner, SyntaxError, wrap_error_reporter
 
 class ParserDescriptionScanner(Scanner):
     def __init__(self, str):

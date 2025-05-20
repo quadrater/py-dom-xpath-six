@@ -1,4 +1,4 @@
-from itertools import *
+from itertools import chain, count
 import math
 import operator
 import re
@@ -6,12 +6,18 @@ import xml.dom
 import weakref
 import sys
 
-from xpath.exceptions import *
+from xpath.exceptions import (
+    XPathNotImplementedError,
+    XPathTypeError,
+    XPathUnknownFunctionError,
+    XPathUnknownPrefixError,
+    XPathUnknownVariableError,
+)
 import xpath
 
-# Workaround for Python 2 and 3 differences
+# Helper for XPath round() that preserves NaN and infinities
 def _round(n):
-    if hasattr(math, "isfinite") and not math.isfinite(n):
+    if not math.isfinite(n):
         return n
     return round(n)
 
