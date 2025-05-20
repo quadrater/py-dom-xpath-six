@@ -26,3 +26,15 @@ dependencies = [
 
 [project.optional-dependencies]
 test = ["pytest"]
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+target-version = "py37"
+line-length = 88
+exclude = ["doc/*"]
+
+[tool.ruff.lint]
+select = ["E", "F"]
+ignore = ["E401", "F401", "F841", "E701", "F811", "E711", "E501"]
