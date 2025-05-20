@@ -34,3 +34,11 @@ permitted the author to release it under the MIT license.
 For further details, visit the project home page at:
 
     http://code.google.com/p/py-dom-xpath/
+
+Running the tests
+-----------------
+To run the unit tests without installing the package, execute::
+
+    python -m unittest discover -s tests -t .
+
+`pytest` will also work if it is installed.
