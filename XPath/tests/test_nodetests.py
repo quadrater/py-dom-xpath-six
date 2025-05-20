@@ -146,6 +146,4 @@ class TestKindTests(unittest.TestCase):
         self.assertEqual([x.target for x in result],
                              ['two'])
 
-if __name__ == '__main__':
-    unittest.main()
 

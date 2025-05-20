@@ -51,5 +51,3 @@ class TestRepr(unittest.TestCase):
             self.assertEqual(str(expr1), str(expr2))
             self.assertEqual(str(expr1), str(expr3))
 
-if __name__ == '__main__':
-    unittest.main()

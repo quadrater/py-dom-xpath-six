@@ -123,5 +123,3 @@ class TestDataModel(unittest.TestCase):
         result = self.context.find('local-name(//element/text())', self.doc)
         self.assertEqual(result, "")
 
-if __name__ == '__main__':
-    unittest.main()

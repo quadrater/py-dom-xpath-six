@@ -442,5 +442,3 @@ class PathsTestCase(unittest.TestCase):
         result = xpath.find("//processing-instruction", doc)
         self.assertEqual([x.getAttribute("id") for x in result], ["1"])
 
-if __name__ == '__main__':
-    unittest.main()

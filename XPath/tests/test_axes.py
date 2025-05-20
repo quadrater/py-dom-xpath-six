@@ -112,6 +112,4 @@ class TestAxes(unittest.TestCase):
 
         self.assertEqual(a, b)
 
-if __name__ == '__main__':
-    unittest.main()
 

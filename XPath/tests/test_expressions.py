@@ -441,5 +441,3 @@ class TestPrecedence(unittest.TestCase):
         result = xpath.find('3 + 4 div 2 - 4 * 1 div 2', self.doc)
         self.assertEqual(result, 3)
 
-if __name__ == '__main__':
-    unittest.main()
