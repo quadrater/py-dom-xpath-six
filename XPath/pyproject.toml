@@ -25,4 +25,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["pytest"]
+test = [
+    "pytest",
+    "lxml",
+    "elementpath",
+]
